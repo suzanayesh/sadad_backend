@@ -73,13 +73,13 @@ WSGI_APPLICATION = 'sadad_backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+ 'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sadad_db',        # الاسم اللي أنشأتيه
+        'NAME': 'sadad_db25',        # الاسم اللي أنشأتيه
         'USER': 'postgres',        # اسم مستخدم Postgres
-        'PASSWORD': '20311678',  # بدّليها
+        'PASSWORD': 'Abed@203116789',  # بدّليها
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 

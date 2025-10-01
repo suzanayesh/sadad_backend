@@ -37,7 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'apps.root_users',
+    'apps.admin_info',
+    'apps.creditors',
+    'apps.debts',
+    'apps.payments',
+    'apps.calculations',
+    'apps.admin_users',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,8 +83,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sadad_db25',        # الاسم اللي أنشأتيه
+        'USER': 'postgres',        # اسم مستخدم Postgres
+        'PASSWORD': 'Abed@203116789',  # بدّليها
+        'HOST': 'localhost',
+        'PORT': '5433',
     }
 }
 
