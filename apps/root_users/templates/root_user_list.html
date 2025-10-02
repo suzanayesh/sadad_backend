@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User List</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>User List</h1>
+    <a href="{% url 'Root_User_Create' %}">Create New User</a>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Password Hash</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for userss in rootusers %}
+        <tr>
+          <td>{{ userss.id }}</td>
+          <td>{{ userss.username }}</td>
+          <td>{{ userss.password_hash}}</td>
+          <td>
+            <a href="{% url 'Root_User_Update' userss.id %}">Edit</a> |
+            <a href="{% url 'Root_User_Delete' userss.id %}">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">No users found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

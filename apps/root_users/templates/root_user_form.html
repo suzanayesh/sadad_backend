@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Root User Form</title>
+  </head>
+  <body>
+    <h1>{% if user %}Update{% else %}Create{% endif %} Root User</h1>
+    <form method="post">
+      {% csrf_token %}
+      <label>Username:</label>
+      <input
+        type="text"
+        name="username"
+        value="{{ user.username|default:'' }}"
+        required
+      /><br />
+      <label>Password Hash:</label>
+      <input
+        type="text"
+        name="password_hash"
+        value="{{ user.password_hash|default:'' }}"
+        required
+      /><br />
+      <button type="submit">
+        {% if user %}Update{% else %}Create{% endif %}
+      </button>
+    </form>
+    <a href="{% url 'Root_User_List' %}">Back to list</a>
+  </body>
+</html>
