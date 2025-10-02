@@ -35,7 +35,7 @@
         <tr>
           <td>{{ userss.id }}</td>
           <td>{{ userss.username }}</td>
-          <td>{{ userss.password_hash}}</td>
+          <td>{{ userss.password_hash }}</td>
           <td>
             <a href="{% url 'Root_User_Update' userss.id %}">Edit</a> |
             <a href="{% url 'Root_User_Delete' userss.id %}">Delete</a>
@@ -48,5 +48,12 @@
         {% endfor %}
       </tbody>
     </table>
+    <h2>Serialized Data (JSON):</h2>
+    <pre>{{ rootusers_json|safe }}</pre>
+    <script>
+      const rootUsers = JSON.parse("{{ rootusers_json|escapejs }}");
+      console.log("RootUsers from serializer:", rootUsers);
+      // You can now use rootUsers in your JS code
+    </script>
   </body>
 </html>
