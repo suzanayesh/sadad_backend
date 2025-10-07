@@ -86,9 +86,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sadad_db25',        # الاسم اللي أنشأتيه
         'USER': 'postgres',        # اسم مستخدم Postgres
-        'PASSWORD': 'Abed@203116789',  # بدّليها
+        'PASSWORD': '20311678',  # بدّليها
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
