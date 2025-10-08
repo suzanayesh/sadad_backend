@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Creditor(models.Model):
     full_name = models.CharField(max_length=150)
     national_id = models.CharField(max_length=32, unique=True)
@@ -11,3 +12,4 @@ class Creditor(models.Model):
 
     def __str__(self):
         return self.full_name
+    # security

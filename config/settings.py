@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 try:
     REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES': (
-            'security.jwt_auth.RootJWTAuthentication',
+            'security.jwt_auth.JWTAuthentication',
         ),
     }
 except Exception:

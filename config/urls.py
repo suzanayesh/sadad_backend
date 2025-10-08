@@ -26,6 +26,8 @@ urlpatterns = [
     path("api/root/login/", RootLoginView.as_view(), name="root-login-alias"),
     # JWT token endpoints (RootUser-based)
     path("api/token/", RootTokenObtainPairView.as_view(), name="token_obtain_pair"),
+path('api/security/', include('security.urls')),
+
 ]
 
 if _token_refresh_view:

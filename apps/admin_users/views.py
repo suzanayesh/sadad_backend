@@ -1,10 +1,10 @@
-from apps.security.views import RootJWTAuthentication
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from apps.root_users.models import RootUser
 
@@ -162,7 +162,7 @@ class CreateAdminByRootView(APIView):
     }
     """
 
-    authentication_classes = [RootJWTAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def post(self, request, root_id, *args, **kwargs):
