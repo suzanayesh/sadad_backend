@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -133,3 +134,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# REST Framework and JWT configuration can be added here. We register authentication
+# per-view to avoid circular imports during startup.
+try:
+    REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'security.jwt_auth.RootJWTAuthentication',
+        ),
+    }
+except Exception:
+    # If imports fail (e.g., simplejwt not installed) leave REST_FRAMEWORK unconfigured here
+    REST_FRAMEWORK = {}

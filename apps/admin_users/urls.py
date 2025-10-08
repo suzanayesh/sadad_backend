@@ -1,13 +1,8 @@
 from django.urls import path
 
-from .views import (
-    CreateAdminRequestView,
-    ListAdminRequestsView,
-    CreateAdminAccountView,
-    RejectAdminRequestView,
-    UpdateRootUserPasswordView,
-    DeleteRootUserView,
-)
+from .views import (CreateAdminAccountView, CreateAdminRequestView,
+                    DeleteRootUserView, ListAdminRequestsView,
+                    RejectAdminRequestView, UpdateRootUserPasswordView)
 
 urlpatterns = [
     path("create-admin-request/", CreateAdminRequestView.as_view(), name="create-admin-request"),

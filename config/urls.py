@@ -2,9 +2,16 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import RedirectView
 
-from apps.admin_users.views import CreateAdminRequestGlobalView
-from apps.admin_users.views import AllAdminRequestsView
+from apps.admin_users.views import (AllAdminRequestsView,
+                                    CreateAdminRequestGlobalView)
 from apps.root_users.views import RootLoginView
+from security.jwt_views import RootTokenObtainPairView
+
+try:
+    from rest_framework_simplejwt.views import \
+        TokenRefreshView as _token_refresh_view
+except Exception:
+    _token_refresh_view = None
 
 urlpatterns = [
     # Redirect root '/' to the API base
@@ -17,4 +24,12 @@ urlpatterns = [
     path("api/admin-requests/", AllAdminRequestsView.as_view(), name="all-admin-requests"),
     # alias so POST /api/root/login/ (used by the client) works
     path("api/root/login/", RootLoginView.as_view(), name="root-login-alias"),
+    # JWT token endpoints (RootUser-based)
+    path("api/token/", RootTokenObtainPairView.as_view(), name="token_obtain_pair"),
 ]
+
+if _token_refresh_view:
+    urlpatterns += [
+        path("api/token/refresh/", _token_refresh_view.as_view(), name="token_refresh"),
+    ]
+ 

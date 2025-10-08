@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import CreateRootUserView, UpdateRootPasswordView, DeleteRootUserView, RootLoginView
+from .views import (CreateRootUserView, DeleteRootUserView, RootLoginView,
+                    UpdateRootPasswordView)
 
 urlpatterns = [
     path("createrootuser/", CreateRootUserView.as_view(), name="create-root-user"),

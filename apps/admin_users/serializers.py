@@ -1,11 +1,11 @@
-from django.contrib.auth.hashers import make_password
+import secrets
+
+from django.contrib.auth.hashers import check_password, make_password
 from rest_framework import serializers
 
-from .models import AdminRequest, AdminUser
-from .models import RootUserToken
 from apps.root_users.models import RootUser
-from django.contrib.auth.hashers import check_password
-import secrets
+
+from .models import AdminRequest, AdminUser, RootUserToken
 
 
 class AdminRequestSerializer(serializers.ModelSerializer):

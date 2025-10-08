@@ -1,14 +1,16 @@
+from apps.security.views import RootJWTAuthentication
+from django.contrib.auth.hashers import make_password
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.hashers import make_password
-
 from apps.root_users.models import RootUser
+
 from .models import AdminRequest, AdminUser
-from .serializers import AdminRequestSerializer, CreateAdminUserSerializer
-from .serializers import RootPasswordSerializer
+from .serializers import (AdminRequestSerializer, CreateAdminUserSerializer,
+                          RootPasswordSerializer)
 
 
 class CreateAdminRequestGlobalView(APIView):
@@ -148,3 +150,64 @@ class DeleteRootUserView(APIView):
 		root.delete()
 		return Response("Root user deleted successfully ✅", status=status.HTTP_200_OK)
 
+class CreateAdminByRootView(APIView):
+    """
+    POST /api/root/<int:root_id>/create-admin/
+
+    Allows an authenticated root user to create a new admin account.
+    Body:
+    {
+        "username": "admin123",
+        "password": "strongpassword"
+    }
+    """
+
+    authentication_classes = [RootJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, root_id, *args, **kwargs):
+        # Ensure authenticated root is the same as the one in the path
+        if request.user.id != root_id:
+            return Response(
+                {"detail": "Unauthorized: you can only create admins under your own account ❌"},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        # Validate required fields
+        if not username or not password:
+            return Response(
+                {"detail": "Both username and password are required ❌"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if username already exists
+        if AdminUser.objects.filter(username=username).exists():
+            return Response(
+                {"detail": "This username already exists ❌"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Create new admin
+        admin_data = {
+            "username": username,
+            "password_hash": make_password(password),
+            "first_name": "",
+            "last_name": "",
+            "national_id": "",
+            "phone": "",
+            "email": "",
+            "root_user": root_id,
+        }
+
+        admin = AdminUser.objects.create(**admin_data)
+
+        response_data = {
+            "id": admin.id,
+            "username": admin.username,
+            "root_user": admin.root_user.id,
+        }
+
+        return Response(response_data, status=status.HTTP_201_CREATED)
