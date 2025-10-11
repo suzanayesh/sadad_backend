@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (CreateAdminAccountView, CreateAdminRequestView,
                     DeleteRootUserView, ListAdminRequestsView,
                     RejectAdminRequestView, UpdateRootUserPasswordView)
+from security.jwt import RootTokenObtainPairView
 
 urlpatterns = [
     path("create-admin-request/", CreateAdminRequestView.as_view(), name="create-admin-request"),
@@ -11,4 +12,5 @@ urlpatterns = [
     path("reject-admin-request/<int:request_id>/", RejectAdminRequestView.as_view(), name="reject-admin-request"),
     path("update-password/", UpdateRootUserPasswordView.as_view(), name="update-root-password"),
     path("delete/", DeleteRootUserView.as_view(), name="delete-root-user"),
+    path('api/token/', RootTokenObtainPairView.as_view(), name='root_token_obtain_pair'),
 ]

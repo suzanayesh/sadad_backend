@@ -72,11 +72,15 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
 
 
 ROOT_URLCONF = 'sadad_backend.urls'
@@ -107,9 +111,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sadad_db25',        # الاسم اللي أنشأتيه
         'USER': 'postgres',        # اسم مستخدم Postgres
-        'PASSWORD': '20311678',  # بدّليها
+        'PASSWORD': 'Abed@203116789',  # بدّليها
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 

@@ -49,10 +49,14 @@ class CreateAdminRequestView(generics.CreateAPIView):
 class ListAdminRequestsView(generics.ListAPIView):
 	"""GET /api/root/<root_id>/admin-requests/"""
 	serializer_class = AdminRequestSerializer
+	authentication_classes = [JWTAuthentication]
+	permission_classes = [IsAuthenticated]
 
 	def get_queryset(self):
 		# For a root user, return pending requests (global). Optionally filter by status query param.
+
 		status_q = self.request.query_params.get("status")
+
 		qs = AdminRequest.objects.all()
 		if status_q:
 			qs = qs.filter(status__iexact=status_q)
@@ -65,6 +69,8 @@ class ListAdminRequestsView(generics.ListAPIView):
 class AllAdminRequestsView(generics.ListAPIView):
 	"""GET /api/admin-requests/ - returns all admin requests. Optional query param: ?status=PENDING|APPROVED|REJECTED"""
 	serializer_class = AdminRequestSerializer
+	authentication_classes = [JWTAuthentication]
+	permission_classes = [IsAuthenticated]
 
 	def get_queryset(self):
 		qs = AdminRequest.objects.all()

@@ -87,9 +87,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sadad_db25',        # الاسم اللي أنشأتيه
         'USER': 'postgres',        # اسم مستخدم Postgres
-        'PASSWORD': '20311678',  # بدّليها
+        'PASSWORD': 'Abed@203116789',  # بدّليها
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 
@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 try:
     REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES': (
-            'security.jwt_auth.JWTAuthentication',
+            'security.jwt.JWTAuthentication',
         ),
     }
 except Exception:
